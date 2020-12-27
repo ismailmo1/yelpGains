@@ -154,6 +154,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-app.listen(3000, () => {
-    console.log('listening on 3000!');
+const port=process.env.PORT;
+
+app.listen(port, () => {
+    console.log(`listening on ${port}!`);
 });
