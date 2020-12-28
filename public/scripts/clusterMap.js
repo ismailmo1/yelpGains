@@ -14,8 +14,7 @@ map.on('load', function () {
     // add the point_count property to your source data.
     map.addSource('campgrounds', {
         type: 'geojson',
-        // Point to GeoJSON data. This example visualizes all M1.0+ campgrounds
-        // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+        // Point to GeoJSON data. 
         data: campgrounds,
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
@@ -105,8 +104,7 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', function (e) {
         const coordinates=e.features[0].geometry.coordinates.slice();
         const { popUpMarkup }=e.features[0].properties;
-        console.log(text)
-
+        console.log(popUpMarkup);
         // Ensure that if the map is zoomed out such that
         // multiple copies of the feature are visible, the
         // popup appears over the copy being pointed to.
