@@ -87,29 +87,31 @@
             Submit
           </button>
         </form>
-        <% } %>
-          <% for(let review of campground.reviews){ %>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h6 class="card-subtitle mb-2">
-                  <%= review.author.username %>
-                </h6>
+        <% } else{%>
+          <h2>Login to Leave a Review!</h2>
+          <% } %>
+            <% for(let review of campground.reviews){ %>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h6 class="card-subtitle mb-2">
+                    <%= review.author.username %>
+                  </h6>
 
-                <p class="starability-result" data-rating="<%= review.rating %>">
-                  Rated: <%= review.rating %> stars
-                </p>
-                <p class="card-text">Review: <%= review.body %>
-                </p>
-                <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-                  method="post">
-                  <% if(currentUser && review.author.equals(currentUser)){ %>
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                    <% } %>
-                </form>
+                  <p class="starability-result" data-rating="<%= review.rating %>">
+                    Rated: <%= review.rating %> stars
+                  </p>
+                  <p class="card-text">Review: <%= review.body %>
+                  </p>
+                  <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                    method="post">
+                    <% if(currentUser && review.author.equals(currentUser)){ %>
+                      <button class="btn btn-sm btn-danger">Delete</button>
+                      <% } %>
+                  </form>
+                </div>
+
               </div>
-
-            </div>
-            <% }%>
+              <% }%>
     </div>
   </div>
 
