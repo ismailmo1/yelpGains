@@ -1,6 +1,8 @@
 const mongoose=require('mongoose');
 const Campground=require('../models/campground');
 const cities=require('./cities')
+const copypasta=require('./copypasta')
+const images=require('./images')
 const { places, descriptors }=require('./seedHelpers')
 const dbUrl="mongodb+srv://ismail:BYMVvGBkaHDNhcPi@cluster0.qd9q3.mongodb.net/<dbname>?retryWrites=true&w=majority"
 const campCollection="https://source.unsplash.com/collection/289662";
@@ -23,40 +25,42 @@ db.once("open", () => {
 
 const sample=(arr) => arr[Math.floor(Math.random()*arr.length)];
 
-const getImgUrl=async () => {
-    try {
-        const res=await axios.get(campCollection)
-        const path=res.request.path
-        return `https://images.unsplash.com${path}`;
-    } catch (e) {
-        console.log(e)
-    }
-}
+// const getImgUrl=async () => {
+//     try {
+//         const res=await axios.get(campCollection)
+//         const path=res.request.path
+//         return `https://images.unsplash.com${path}`;
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
 
 const seedDB=async () => {
     await Campground.deleteMany({});
     for (let i=0; i<20; i++) {
-        const random1000=Math.floor(Math.random()*1000);
+        const random443=Math.floor(Math.random()*443);
+        const random15=Math.floor(Math.random()*15);
+        const random11=Math.floor(Math.random()*11);
         const price=Math.floor(Math.random()*20)+10;
         const camp=new Campground({
             author: '5fea6159b1a4bf58f502b06a',
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            location: `${cities[random443].city}, ${cities[random443].admin_name}`,
             geometry: {
                 type: "Point",
                 coordinates: [
-                    cities[random1000].longitude,
-                    cities[random1000].latitude
+                    cities[random443].lng,
+                    cities[random443].lat
                 ]
 
             },
             title: `${sample(descriptors)} ${sample(places)}`,
             images: [
                 {
-                    url: await getImgUrl()
+                    url: images[random11]
                 }
 
             ],
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi numquam, magni nostrum nobis pariatur vel. Aut assumenda cum hic, repellat velit quo nostrum, architecto voluptas molestiae excepturi omnis. Dolorum, dignissimos!',
+            description: copypasta[random15],
             price
         });
         await camp.save();
