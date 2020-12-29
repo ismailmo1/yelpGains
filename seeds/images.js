@@ -12,5 +12,4 @@ const getRandomImage=async (unsplashUrl) => {
     }
 }
 
-module.exports=getRandomImage;
 
