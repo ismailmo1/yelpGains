@@ -12,7 +12,7 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200')
 });
 
-const CampgroundSchema=new Schema({
+const gymSchema=new Schema({
     title: String,
     images: [ImageSchema],
     price: Number,
@@ -40,14 +40,19 @@ const CampgroundSchema=new Schema({
                 ref: 'Review'
             }
         ],
+    squatRacks: Number,
+    benchRacks: Number,
+    dlPlatforms: Number,
+    dbBenches: Number,
+    cables: Number
 }, opts);
 
-CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
-    return `<a href = "/campgrounds/${this._id}">${this.title}</a>
+gymSchema.virtual('properties.popUpMarkup').get(function () {
+    return `<a href = "/gyms/${this._id}">${this.title}</a>
     <p#>`;
 });
 
-CampgroundSchema.post('findOneAndDelete', async function (doc) {
+gymSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await Review.deleteMany({
             _id: {
@@ -59,4 +64,4 @@ CampgroundSchema.post('findOneAndDelete', async function (doc) {
     }
 })
 
-module.exports=mongoose.model('Campground', CampgroundSchema);
+module.exports=mongoose.model('gym', gymSchema);

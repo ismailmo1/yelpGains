@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const mongoose=require('mongoose');
-const Campground=require('../models/campground');
+const Gym=require('../models/gym');
 const cities=require('./cities')
 const copypasta=require('./copypasta')
 const images=require('./images')
@@ -37,14 +37,14 @@ const sample=(arr) => arr[Math.floor(Math.random()*arr.length)];
 // }
 
 const seedDB=async () => {
-    await Campground.deleteMany({});
+    await Gym.deleteMany({});
     for (let i=0; i<50; i++) {
         const random443=Math.floor(Math.random()*443);
         const random15=Math.floor(Math.random()*15);
         const random11=Math.floor(Math.random()*11);
         const price=Math.floor(Math.random()*20)+10;
-        const camp=new Campground({
-            author: '5fea6159b1a4bf58f502b06a',
+        const camp=new Gym({
+            author: '5fecdb4532af3049d84f2750',
             location: `${cities[random443].city}, ${cities[random443].admin_name}`,
             geometry: {
                 type: "Point",
@@ -62,7 +62,12 @@ const seedDB=async () => {
 
             ],
             description: copypasta[random15],
-            price
+            price,
+            squatRacks: Math.floor(Math.random()*8),
+            benchRacks: Math.floor(Math.random()*5),
+            dlPlatforms: Math.floor(Math.random()*4),
+            dbBenches: Math.floor(Math.random()*10),
+            cables: Math.floor(Math.random()*5)
         });
         await camp.save();
     }

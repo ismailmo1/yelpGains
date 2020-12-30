@@ -7,13 +7,13 @@
 
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <% campground.images.forEach((img, i)=> { %>
+            <% gym.images.forEach((img, i)=> { %>
               <div class="carousel-item <%= i===0 ?  'active' : '' %>">
                 <img src=<%=img.url %> class="d-block w-100" alt="">
               </div>
               <% }) %>
           </div>
-          <% if(campground.images.length>1){ %>
+          <% if(gym.images.length>1){ %>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
@@ -26,24 +26,34 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">
-            <%= campground.title %>
+            <%= gym.title %>
           </h5>
           <p class="card-text">
-            <%= campground.description %>
+            <%= gym.description %>
           </p>
         </div>
         <ul class="list-group list-group-flush">
+          <li class="list-group-item">squatRacks: <%= gym.squatRacks %>
+          </li>
+          <li class="list-group-item">benchRacks: <%= gym.benchRacks %>
+          </li>
+          <li class="list-group-item">dlPlatforms: <%= gym.dlPlatforms %>
+          </li>
+          <li class="list-group-item">dbBenches: <%= gym.dbBenches %>
+          </li>
+          <li class="list-group-item">cables: <%= gym.cables %>
+          </li>
           <li class="list-group-item text-muted">
-            <%= campground.location %>
+            <%= gym.location %>
           </li>
-          <li class="list-group-item text-muted">Submitted by <%= campground.author.username %>
+          <li class="list-group-item text-muted">Submitted by <%= gym.author.username %>
           </li>
-          <li class="list-group-item">£<%= campground.price %>/night</li>
+          <li class="list-group-item">£<%= gym.price %>/month</li>
         </ul>
-        <% if(currentUser && campground.author.equals(currentUser)){ %>
+        <% if(currentUser && gym.author.equals(currentUser)){ %>
           <div class="card-body">
-            <a href="/campgrounds/<%= campground._id %>/edit" class="card-link btn btn-info">Edit</a>
-            <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="post">
+            <a href="/gyms/<%= gym._id %>/edit" class="card-link btn btn-info">Edit</a>
+            <form class="d-inline" action="/gyms/<%= gym._id %>?_method=DELETE" method="post">
               <button class="card-link btn btn-danger">Delete</button>
             </form>
           </div>
@@ -60,7 +70,7 @@
         <h2>
           Leave a Review
         </h2>
-        <form action="/campgrounds/<%= campground._id %>/reviews" method="post" novalidate class=" validated-form mb-3">
+        <form action="/gyms/<%= gym._id %>/reviews" method="post" novalidate class=" validated-form mb-3">
           <div class="mb-3">
             <fieldset class="starability-basic">
               <legend>Rating:</legend>
@@ -90,7 +100,7 @@
         <% } else{%>
           <h2>Login to Leave a Review!</h2>
           <% } %>
-            <% for(let review of campground.reviews){ %>
+            <% for(let review of gym.reviews){ %>
               <div class="card mb-3">
                 <div class="card-body">
                   <h6 class="card-subtitle mb-2">
@@ -102,8 +112,7 @@
                   </p>
                   <p class="card-text">Review: <%= review.body %>
                   </p>
-                  <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-                    method="post">
+                  <form action="/gyms/<%= gym._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
                     <% if(currentUser && review.author.equals(currentUser)){ %>
                       <button class="btn btn-sm btn-danger">Delete</button>
                       <% } %>
@@ -117,6 +126,6 @@
 
   <script>
     const mapBoxToken='<%-process.env.MAPBOX_TOKEN%>';
-    const campground= <%-JSON.stringify(campground)%>;
+    const gym= <%-JSON.stringify(gym)%>;
   </script>
   <script src="/scripts/showMap.js"></script>

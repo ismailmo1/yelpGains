@@ -8,7 +8,7 @@ module.exports.registerUser = async (req, res) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', `Welcome to Yelp Camp ${username}!`)
-            res.redirect('/campgrounds');
+            res.redirect('/gyms');
         })
     } catch (e) {
         req.flash('error', e.message);
@@ -26,7 +26,7 @@ module.exports.renderLogin = async (req, res) => {
 
 module.exports.loginUser = async (req, res) => {
     req.flash('success', 'Welcome Back!')
-    const redirectUrl = req.session.returnTo || '/campgrounds'
+    const redirectUrl = req.session.returnTo || '/gyms'
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 }
@@ -34,5 +34,5 @@ module.exports.loginUser = async (req, res) => {
 module.exports.logoutUser = (req, res) => {
     req.logOut();
     req.flash('success', 'see ya!')
-    res.redirect('/campgrounds')
+    res.redirect('/gyms')
 }

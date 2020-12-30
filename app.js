@@ -10,7 +10,7 @@ const ExpressError=require('./utils/ExpressError')
 const methodOverride=require('method-override')
 const session=require('express-session');
 const flash=require('connect-flash')
-const campgroundRoutes=require('./routes/campgrounds')
+const gymRoutes=require('./routes/gyms')
 const reviewRoutes=require('./routes/reviews')
 const userRoutes=require('./routes/users')
 const passport=require('passport');
@@ -136,8 +136,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', userRoutes);
-app.use('/campgrounds', campgroundRoutes);
-app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/gyms', gymRoutes);
+app.use('/gyms/:id/reviews', reviewRoutes);
 
 
 app.get('/', async (req, res) => {
